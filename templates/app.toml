@@ -1,0 +1,23 @@
+[app]
+name = "{{app}}"
+port = 3000
+domains = ["{{app}}.example.com"]
+
+[healthcheck]
+kind = "http"
+path = "/health"
+retries = 10
+timeout_ms = 2000
+interval_ms = 500
+
+[deploy]
+image_prefix = "ghcr.io/your-org/{{app}}"
+tag_strategy = "git_sha"
+git_ref = "HEAD"
+quadlet_dir = "/home/deploy/.config/containers/systemd"
+# Used by git push deploy to tag locally built images.
+image_template = "ghcr.io/your-org/{{app}}:{{sha}}"
+retain = 10
+
+[env]
+RUST_LOG = "info"

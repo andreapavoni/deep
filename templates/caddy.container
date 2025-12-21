@@ -1,0 +1,17 @@
+[Unit]
+Description=Deep Caddy
+
+[Container]
+Image={{image}}
+ContainerName={{name}}
+Network=deep-net
+PublishPort={{http_port}}:80
+PublishPort={{https_port}}:443
+Volume={{data_dir}}:/data
+Volume={{config_dir}}:/etc/caddy
+
+[Service]
+ExecReload=/usr/bin/podman exec {{name}} caddy reload --config /etc/caddy/Caddyfile --adapter caddyfile
+
+[Install]
+WantedBy=multi-user.target

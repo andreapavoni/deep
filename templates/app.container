@@ -1,0 +1,18 @@
+[Unit]
+Description=Deep app {{app}}
+
+[Container]
+Image={{image}}
+ContainerName=deep-app-{{app}}-{{release}}
+Network=deep-net
+{{env}}
+{{health}}
+
+[Service]
+Restart=always
+RestartSec=2
+StartLimitBurst=5
+StartLimitIntervalSec=60
+
+[Install]
+WantedBy=multi-user.target
